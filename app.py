@@ -76,45 +76,52 @@ app_ui = ui.page_fluid(
     ui.layout_column_wrap(
         ui.value_box(
            "",
+           "3 questions asked",
+           "", 
+           showcase=icon("clipboard-question"), 
+           ), 
+        ui.value_box(
+           "",
            str(N)+" ideas submitted",
            "",
            showcase=icon("lightbulb")
         ), 
         ui.value_box(
-           "",
-           "3 questions asked",
            "", 
-           showcase=icon("users-line"), 
-           ), 
-        ui.value_box(
+           "300+ attendees", 
            "", 
-           "Something else", 
-           "", 
-           showcase=icon("hourglass-end"), 
+           showcase=icon("users"), 
            ), 
         style="margin: 20px auto; width: 80%;",
     ),
+    
+    ui.div(
+        ui.p([
+            "Created by: ",
+            ui.a("psi.tech", target="_blank", href="https://psi.tech")
+            ]),
+        style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; margin:20px auto;"
+        ),
         
     ui.div(
         ui.layout_column_wrap(
             ui.div(
-                ui.h1("What are the most important questions in collective intelligence in 2024?", class_="h1"),
+                ui.h1("The collective intelligence community answers", class_="h1"),
                 ), 
             ui.div(
                 ui.HTML(
-                    """<dotlottie-player src="https://lottie.host/724642ae-73ad-4470-a0b2-2c0f80495c60/loX3SZBZGH.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>"""
-                    ), 
+                    """<dotlottie-player src="https://lottie.host/2e532aa1-f609-4a99-95ff-fd12202b8c14/oDoZDcDCBB.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>"""),
                 style="display: flex; justify-content: center; align-items: center; " ,
                 ), 
             style="margin: 20vmin auto; width: 90%;",
             ),
         ui.card(
-            ui.card_header("Ask PSi AI for insights"),
+            ui.card_header("Ask the AI what conference attendees said"),
             ui.layout_sidebar(
                 ui.sidebar(
                     ui.input_action_button("chatbot_modal1", "How to interact with this card"),
                     ),
-                ui.input_text_area("chat_input1", "", width='70%', placeholder="Ask a question about this survey..."),
+                ui.input_text_area("chat_input1", "", width='80%', placeholder="Ask a question about this survey..."),
                 ui.tooltip(
                    ui.input_action_button("chat_submit1", "Submit", width='20%'), 
                    "Press the button only once. It takes a few seconds to generate the highlights.",
@@ -145,7 +152,7 @@ app_ui = ui.page_fluid(
                 ),
             ui.layout_column_wrap(
                 ui.card(
-                    ui.card_header("Question 1"),
+                    ui.card_header("How can AI and human intelligence be effectively integrated to enhance collective decision-making?"),
                     ui.row(
                         output_widget("plot_idea_map1")
                         ),
@@ -153,7 +160,7 @@ app_ui = ui.page_fluid(
                     ),
                 
                 ui.card(
-                    ui.card_header("Question 2"),
+                    ui.card_header("What are the ethical implications of AI-assisted collective intelligence systems?"),
                     ui.row(
                         output_widget("plot_idea_map2")
                         ),
@@ -161,17 +168,15 @@ app_ui = ui.page_fluid(
                     ),
 
                 ui.card(
-                    ui.card_header("Question 3"),
+                    ui.card_header("Under what conditions does collective intelligence emerge?"),
                     ui.row(
                         output_widget("plot_idea_map3")
                         ),
                     full_screen=True,
-                    ),
-                style="margin: 20vmin auto; width: 80%;",
+                    )
                 ),
             )
         ),
-
 )
 
 ### SERVER ###________________________________________________________________________
@@ -182,9 +187,9 @@ def server(input, output, session):
     
     @reactive.calc
     async def read_conversation():
-        with ui.Progress(min=0, max=10) as p: # len(transcript.table_id.unique())
-            p.set(message="Analysing", 
-                      detail="This may take a while...")
+        with ui.Progress(min=0, max=5) as p: # len(transcript.table_id.unique())
+            p.set(message="Reading what people said.", 
+                      detail="Hold tight...")
                 
             try: 
                 response = chat_session.send_message('Please read this text and answer ONLY questions relevant to this text: ' + \
