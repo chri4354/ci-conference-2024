@@ -139,15 +139,15 @@ app_ui = ui.page_fluid(
                 ui.input_action_button("idea_map_modal1", "How to read this graph"),
                 ui.input_slider(
                     "clusters_number1", label="Select a number of clusters",
-                    min=2, max=5, value=3, step=1, ticks=True
+                    min=2, max=5, value=2, step=1, ticks=True
                     ),
                 ui.input_slider(
                     "clusters_number2", label="Select a number of clusters",
-                    min=2, max=5, value=3, step=1, ticks=True
+                    min=2, max=5, value=2, step=1, ticks=True
                     ),  
                 ui.input_slider(
                     "clusters_number3", label="Select a number of clusters",
-                    min=2, max=5, value=3, step=1, ticks=True
+                    min=2, max=5, value=2, step=1, ticks=True
                     ), 
                 ),
             ui.layout_column_wrap(
