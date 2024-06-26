@@ -239,6 +239,44 @@ def server(input, output, session):
         is_conversation_analysed.set(1)        
         return
 
+    # remove text input from text box
+    @reactive.effect
+    @reactive.event(input.chat_submit1)
+    def _():
+       ui.update_text("chat_input1", value="")
+
+    # add text input to chat history
+    @reactive.effect
+    @reactive.event(input.chat_submit1)
+    def _():
+        ui.insert_ui(
+            ui.div(
+               ui.markdown(input.chat_input1()), 
+               class_="chat-message-sent"
+               ),
+            selector="#chat_input1", 
+            where="beforeBegin",
+        ),
+
+    @reactive.effect
+    @reactive.event(input.chat_submit1)
+    async def chat_output1():
+        # if it is the first message, then read the conversation
+        if len(chat_session.history) == 0:
+            await read_conversation()
+
+        # call Gemini API
+        answer  = chat_gemini(input.chat_input1(), chat_session)
+            
+        ui.insert_ui(
+            ui.div(
+                ui.markdown(answer),
+                class_="chat-message-bot"
+                ),
+            selector="#chat_input1", 
+            where="beforeBegin",
+        )
+    
     @output
     @render_widget
     def plot_idea_map1():
@@ -310,44 +348,6 @@ def server(input, output, session):
         fig.update_yaxes(showticklabels=False) # Hide y axis ticks
         fig.update_coloraxes(showscale=False)
         return fig 
-    
-    # remove text input from text box
-    @reactive.effect
-    @reactive.event(input.chat_submit1)
-    def _():
-       ui.update_text("chat_input1", value="")
-
-    # add text input to chat history
-    @reactive.effect
-    @reactive.event(input.chat_submit1)
-    def _():
-        ui.insert_ui(
-            ui.div(
-               ui.markdown(input.chat_input1()), 
-               class_="chat-message-sent"
-               ),
-            selector="#chat_input1", 
-            where="beforeBegin",
-        ),
-
-    @reactive.effect
-    @reactive.event(input.chat_submit1)
-    async def chat_output1():
-        # if it is the first message, then read the conversation
-        if len(chat_session.history) == 0:
-            await read_conversation()
-
-        # call Gemini API
-        answer  = chat_gemini(input.chat_input1(), chat_session)
-            
-        ui.insert_ui(
-            ui.div(
-                ui.markdown(answer),
-                class_="chat-message-bot"
-                ),
-            selector="#chat_input1", 
-            where="beforeBegin",
-        )
             
 
 
