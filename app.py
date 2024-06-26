@@ -95,7 +95,7 @@ app_ui = ui.page_fluid(
            "", 
            showcase=icon("users"), 
            ), 
-        style="margin: 20px auto; width: 80%;",
+        style="margin: 20px auto; width: 90%;",
     ),
     
     ui.div(
@@ -139,7 +139,7 @@ app_ui = ui.page_fluid(
            "Under what conditions does collective intelligence emerge?", 
            showcase=icon("arrows-split-up-and-left"), 
            ), 
-        style="margin: 20px auto; width: 80%;",
+        style="margin: 20px auto; width: 90%;",
     ),
     
     ui.div(    
@@ -158,7 +158,7 @@ app_ui = ui.page_fluid(
             full_screen=True,
             max_height = "100vh",
             ),
-        style="margin: 20vmin auto; width: 80%;",
+        style="margin: 20vmin auto; width: 90%;",
         ),
     
     ui.card(
