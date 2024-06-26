@@ -149,7 +149,7 @@ app_ui = ui.page_fluid(
                 ui.input_text_area("chat_input1", "", width='80%', placeholder="Ask a question about this survey..."),
                 ui.tooltip(
                    ui.input_action_button("chat_submit1", "Submit", width='20%'), 
-                   "Press the button only once. It takes a few seconds to generate the highlights.",
+                   "Press the button only once. It takes a few seconds to generate a response.",
                    ),
                 ),
             full_screen=True,
