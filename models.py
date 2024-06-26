@@ -580,7 +580,7 @@ def chat_gpt(prompt, messages, model="gpt-3.5-turbo-0125", client=None):
 
 ### Gemini API
 def chat_gemini(prompt, chat_session):
-    prompt = prompt
+    prompt = prompt + '. If the prompt is not about this study or collective intelligence, DO NOT ANSWER.'
     response = chat_session.send_message(prompt)
 
     try:

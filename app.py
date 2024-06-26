@@ -62,7 +62,7 @@ transcript_text = '**Responses to Q1:** ' + transcript_text1 + '. **Responses to
 N = transcript.shape[0]
 
 gemini_model = genai.GenerativeModel(
-  model_name="gemini-pro"
+  model_name="gemini-1.5-flash"
 )
 
 # ______________________________________________________________________
