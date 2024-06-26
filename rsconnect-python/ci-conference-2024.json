@@ -7,6 +7,6 @@
         "app_guid": null,
         "title": "ci2024",
         "app_mode": "python-shiny",
-        "app_store_version": 2
+        "app_store_version": 1
     }
 }

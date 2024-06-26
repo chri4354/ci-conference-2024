@@ -53,7 +53,10 @@ Q3_text = transcript.Q3.dropna().apply(lambda x: x.removeprefix("[Transcribed] "
 idea_map1 = compute_idea_map(Q1_text)
 idea_map2 = compute_idea_map(Q2_text)
 idea_map3 = compute_idea_map(Q3_text)
-transcript_text = "; ".join(Q1_text.to_list() + Q2_text.to_list() + Q3_text.to_list())
+transcript_text1 = "; ".join(Q1_text.to_list())
+transcript_text2 = "; ".join(Q2_text.to_list())
+transcript_text3 = "; ".join(Q3_text.to_list())
+transcript_text = '**Responses to Q1:** ' + transcript_text1 + '. **Responses to Q2:** ' + transcript_text2 + '. **Responses to Q3:** ' + transcript_text3
 
 # Compute Number of ideas submitted [TO DO]
 N = transcript.shape[0]
@@ -217,7 +220,15 @@ def server(input, output, session):
                       detail="Hold tight...")
                 
             try: 
-                response = chat_session.send_message('Please read this text and answer ONLY questions relevant to this text: ' + \
+                response = chat_session.send_message(
+                    """A researcher is conducting a study. He asked the collective intelligence community 
+                    'What are the 3 most important questions in collective intelligence in 2024?'. 
+                    The questions were: 
+                    1. How can AI and human intelligence be effectively integrated to enhance collective decision-making? 
+                    2. What are the ethical implications of AI-assisted collective intelligence systems? 
+                    3. Under what conditions does collective intelligence emerge?
+                    He then asked those 3 questions to the attendees of the ACM Collective Intelligence Conference 2024. 
+                    Read below the attendees' answers and answer only questions relevant to this topic: """ + \
                                                         " ".join(transcript_text))
                 await asyncio.sleep(0.2)
                 
