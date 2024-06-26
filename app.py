@@ -102,7 +102,7 @@ app_ui = ui.page_fluid(
             ]),
         style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; margin:20px auto;"
         ),
-        
+    
     ui.div(
         ui.layout_column_wrap(
             ui.div(
@@ -115,6 +115,31 @@ app_ui = ui.page_fluid(
                 ), 
             style="margin: 20vmin auto; width: 90%;",
             ),
+        ),
+    
+    ui.layout_column_wrap(
+        ui.value_box(
+           "",
+           "Question 1",
+           "How can AI and human intelligence be effectively integrated to enhance collective decision-making?", 
+           showcase=icon("arrow-right-arrow-left"), 
+           ), 
+        ui.value_box(
+           "",
+           "Question 2",
+           "What are the ethical implications of AI-assisted collective intelligence systems?",
+           showcase=icon("arrow-down-up-across-line")
+        ), 
+        ui.value_box(
+           "", 
+           "Question 3", 
+           "Under what conditions does collective intelligence emerge?", 
+           showcase=icon("arrows-split-up-and-left"), 
+           ), 
+        style="margin: 20px auto; width: 80%;",
+    ),
+    
+    ui.div(    
         ui.card(
             ui.card_header("Ask the AI what conference attendees said"),
             ui.layout_sidebar(
@@ -152,7 +177,7 @@ app_ui = ui.page_fluid(
                 ),
             ui.layout_column_wrap(
                 ui.card(
-                    ui.card_header("How can AI and human intelligence be effectively integrated to enhance collective decision-making?"),
+                    ui.card_header("Q1. How can AI and human intelligence be effectively integrated to enhance collective decision-making?"),
                     ui.row(
                         output_widget("plot_idea_map1")
                         ),
@@ -160,7 +185,7 @@ app_ui = ui.page_fluid(
                     ),
                 
                 ui.card(
-                    ui.card_header("What are the ethical implications of AI-assisted collective intelligence systems?"),
+                    ui.card_header("Q2. What are the ethical implications of AI-assisted collective intelligence systems?"),
                     ui.row(
                         output_widget("plot_idea_map2")
                         ),
@@ -168,7 +193,7 @@ app_ui = ui.page_fluid(
                     ),
 
                 ui.card(
-                    ui.card_header("Under what conditions does collective intelligence emerge?"),
+                    ui.card_header("Q3. Under what conditions does collective intelligence emerge?"),
                     ui.row(
                         output_widget("plot_idea_map3")
                         ),
@@ -210,7 +235,7 @@ def server(input, output, session):
         idea_map1['cluster_labels'] = kmeans.labels_
         fig = px.scatter(idea_map1, 
                         x="x", y="y",
-                        hover_data="texts", 
+                        hover_data="idea", 
                         color="cluster_labels", 
                         color_discrete_sequence=["#8E59FF","#E4D7FF", "#2C154D"],
                         opacity=.5, 
@@ -234,7 +259,7 @@ def server(input, output, session):
         idea_map2['cluster_labels'] = kmeans.labels_
         fig = px.scatter(idea_map2, 
                         x="x", y="y",
-                        hover_data="texts", 
+                        hover_data="idea", 
                         color="cluster_labels", 
                         color_discrete_sequence=["#8E59FF","#E4D7FF", "#2C154D"],
                         opacity=.5, 
@@ -258,7 +283,7 @@ def server(input, output, session):
         idea_map3['cluster_labels'] = kmeans.labels_
         fig = px.scatter(idea_map3, 
                         x="x", y="y",
-                        hover_data="texts", 
+                        hover_data="idea", 
                         color="cluster_labels", 
                         color_discrete_sequence=["#8E59FF","#E4D7FF", "#2C154D"],
                         opacity=.5, 
@@ -321,31 +346,7 @@ def server(input, output, session):
     def _():
         m = ui.modal(  
             ui.markdown("""
-                        This scatter plot visually represents ideas discussed, with each dot symbolizing an idea. The dot's size indicates the number of votes the idea received, while colors group similar ideas together. Ideas close to each other on the graph are more related. Use this graph to quickly identify popular ideas (larger dots), understand thematic clusters (dots of the same color), and see the relationships between different ideas based on their positions.
-                        """),
-            title="How to read this graph",  
-            easy_close=True,  
-        )  
-        ui.modal_show(m)  
-
-    @reactive.effect
-    @reactive.event(input.idea_map_modal2)
-    def _():
-        m = ui.modal(  
-            ui.markdown("""
-                        This scatter plot visually represents ideas discussed, with each dot symbolizing an idea. The dot's size indicates the number of votes the idea received, while colors group similar ideas together. Ideas close to each other on the graph are more related. Use this graph to quickly identify popular ideas (larger dots), understand thematic clusters (dots of the same color), and see the relationships between different ideas based on their positions.
-                        """),
-            title="How to read this graph",  
-            easy_close=True,  
-        )  
-        ui.modal_show(m)  
-
-    @reactive.effect
-    @reactive.event(input.idea_map_modal3)
-    def _():
-        m = ui.modal(  
-            ui.markdown("""
-                        This scatter plot visually represents ideas discussed, with each dot symbolizing an idea. The dot's size indicates the number of votes the idea received, while colors group similar ideas together. Ideas close to each other on the graph are more related. Use this graph to quickly identify popular ideas (larger dots), understand thematic clusters (dots of the same color), and see the relationships between different ideas based on their positions.
+                        This scatter plot visually represents responders' ideas, with each dot representing an idea. Colors group similar ideas together. Ideas close to each other on the graph are more related. Use this graph to quickly understand thematic clusters (dots of the same color).
                         """),
             title="How to read this graph",  
             easy_close=True,  
@@ -358,7 +359,7 @@ def server(input, output, session):
         m = ui.modal(
             ui.markdown(
                 """
-                The PSi AI is designed to provide insights and answer questions about the conversation. You can ask the AI about the discussion, ideas, or any other aspect of the conversation. The AI uses advanced natural language processing (NLP) models to understand your questions and provide accurate responses. Feel free to interact with the AI and explore the conversation in more detail.
+                Ask the AI about the answers provided by the conference attendees. Feel free to interact with the AI and explore what the community said in more detail.
                 """
                 ),  
             title="How to interact with the AI",  

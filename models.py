@@ -434,8 +434,8 @@ def compute_idea_map(text, model="all-mpnet-base-v2"):
     x.columns = x.columns.astype(str)
     components = pca.fit_transform(x)
     df = pd.DataFrame(components, columns=['x', 'y'])
-    df['texts'] = sentences
-    df.texts = df.texts.str.wrap(30).apply(lambda x: x.replace('\n', '<br>'))
+    df['idea'] = sentences
+    df.idea = df.idea.str.wrap(30).apply(lambda x: x.replace('\n', '<br>'))
     return df
 
 ###JASECI_____________________________________________________________________
